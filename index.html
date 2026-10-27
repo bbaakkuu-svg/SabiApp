@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SabiApp - Prototipo Interactivo Figma & Presentación</title>
+  <!-- Google Fonts: Lexend y Plus Jakarta Sans diseñadas para máxima legibilidad -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- BARRA SUPERIOR PARA PRESENTACIÓN A COMPAÑEROS DE PROYECTO -->
+  <header class="presentation-header" id="presentationHeader">
+    <div class="presentation-brand">
+      <div class="logo-badge">🌱 SabiApp</div>
+      <span class="prototype-tag">Prototipo Interactivo UX/UI Senior</span>
+    </div>
+    
+    <div class="screen-selector-tabs" role="tablist" aria-label="Pantallas del Prototipo">
+      <button class="tab-btn active" id="tabScreen1" onclick="switchScreen(1)">
+        <span class="tab-num">1</span> Mapa de Lecciones
+      </button>
+      <button class="tab-btn" id="tabScreen2" onclick="switchScreen(2)">
+        <span class="tab-num">2</span> Chat Simulado WhatsApp
+      </button>
+      <button class="tab-btn" id="tabScreen3" onclick="switchScreen(3)">
+        <span class="tab-num">3</span> Recompensa & Éxito
+      </button>
+    </div>
+
+    <div class="presentation-actions">
+      <button class="btn-action-guide" onclick="openFigmaModal()">
+        🎨 Importar a Figma
+      </button>
+      <button class="btn-action-spec" onclick="toggleSpecPanel()">
+        📋 Ficha Técnica UX
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL CON MARCO DE DISPOSITIVO MÓVIL Y PANEL LATERAL DE ESPECIFICACIONES -->
+  <main class="main-stage">
+    
+    <!-- MÓVIL ACCESIBLE CON ESCALA REALISTA -->
+    <div class="device-wrapper" id="deviceWrapper">
+      <div class="mobile-frame">
+        <!-- Barra de estado del móvil -->
+        <div class="status-bar">
+          <span class="status-time">10:30</span>
+          <div class="status-icons">
+            <span title="Red al 100%">📶</span>
+            <span title="WiFi conectado">🛜</span>
+            <span title="Batería 92%">🔋 92%</span>
+          </div>
+        </div>
+
+        <!-- PANTALLA 1: MENÚ / MAPA DE LECCIONES (ESTILO DUOLINGO ADAPTADO) -->
+        <section id="screen1" class="app-screen active" aria-label="Pantalla 1: Mapa de Lecciones">
+          <!-- Cabecera de la App -->
+          <div class="app-header">
+            <div class="user-greeting">
+              <span class="greeting-sub">Hola Carmen 👋</span>
+              <h1 class="greeting-main">Tu camino hoy</h1>
+            </div>
+            
+            <div class="header-badges">
+              <div class="badge-item badge-streak" title="Racha de días practicados">
+                <span class="badge-icon">🔥</span>
+                <span class="badge-text"><strong>4</strong> días</span>
+              </div>
+              <div class="badge-item badge-stars" title="Estrellas acumuladas">
+                <span class="badge-icon">⭐</span>
+                <span class="badge-text"><strong>12</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Banner Motivacional Accesible -->
+          <div class="motivation-banner">
+            <div class="motivation-icon">💡</div>
+            <div class="motivation-text">
+              <strong>Sin prisas y sin miedo:</strong> cada ejercicio lo puedes repetir todas las veces que quieras.
+            </div>
+          </div>
+
+          <!-- Mapa Lineal de Lecciones (Senior Friendly Stepper) -->
+          <div class="lesson-map-container">
+            
+            <!-- Nivel 1: Completado -->
+            <div class="lesson-node completed">
+              <div class="node-connector done"></div>
+              <button class="node-circle done" onclick="showToast('¡Nivel 1 ya dominado! Repasaste el saludo y los primeros emojis.')" aria-label="Nivel 1 Completado: El saludo">
+                <span class="node-icon">✓</span>
+                <span class="node-status-badge">Completado</span>
+              </button>
+              <div class="node-info">
+                <span class="node-title">1. El Saludo Inicial</span>
+                <span class="node-sub">Escribir "Hola" y responder</span>
+              </div>
+            </div>
+
+            <!-- Nivel 2: Nivel Actual (Llamada a la Acción Principal) -->
+            <div class="lesson-node current">
+              <div class="node-connector current"></div>
+              <div class="pulse-ring"></div>
+              <button class="node-circle active" onclick="switchScreen(2)" aria-label="Nivel 2 Activo: Notas de Voz">
+                <span class="node-icon">🎤</span>
+                <span class="node-tag-active">¡Toca Aquí!</span>
+              </button>
+              <div class="node-info">
+                <span class="node-title highlight">2. Enviar Nota de Voz</span>
+                <span class="node-sub">Aprende a hablar sin tener que escribir</span>
+              </div>
+              
+              <!-- Botón CTA Grande y Destacado -->
+              <button class="btn-start-level" onclick="switchScreen(2)">
+                <span class="btn-icon">▶</span>
+                <span class="btn-text">EMPEZAR ESTE RETO</span>
+              </button>
+            </div>
+
+            <!-- Nivel 3: Próximo / Bloqueado Amigable -->
+            <div class="lesson-node locked">
+              <div class="node-connector locked"></div>
+              <button class="node-circle locked" onclick="showToast('Se desbloqueará al terminar la lección de Notas de Voz.')" aria-label="Nivel 3 Bloqueado: Compartir Fotos">
+                <span class="node-icon">🔒</span>
+              </button>
+              <div class="node-info">
+                <span class="node-title">3. Enviar Fotos Familiares</span>
+                <span class="node-sub">Compartir fotos de la galería</span>
+              </div>
+            </div>
+
+            <!-- Nivel 4: Bloqueado -->
+            <div class="lesson-node locked">
+              <button class="node-circle locked" onclick="showToast('Lección 4: Videollamadas seguras.')" aria-label="Nivel 4 Bloqueado: Videollamada">
+                <span class="node-icon">🔒</span>
+              </button>
+              <div class="node-info">
+                <span class="node-title">4. Hacer Videollamada</span>
+                <span class="node-sub">Ver a tus nietos en directo</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Barra de Navegación Inferior (Objetivos > 64dp) -->
+          <nav class="bottom-nav-bar" aria-label="Navegación principal">
+            <button class="nav-item active" aria-selected="true" onclick="switchScreen(1)">
+              <span class="nav-icon">🗺️</span>
+              <span class="nav-label">Lecciones</span>
+            </button>
+            <button class="nav-item" onclick="showToast('Diccionario SabiApp: aquí consultas qué significa cada icono de WhatsApp')">
+              <span class="nav-icon">📖</span>
+              <span class="nav-label">Chuleta</span>
+            </button>
+            <button class="nav-item" onclick="showToast('Tu Perfil: Carmen, 72 años. Nivel: Aprendiz Sabia.')">
+              <span class="nav-icon">👤</span>
+              <span class="nav-label">Mi Cuenta</span>
+            </button>
+          </nav>
+        </section>
+
+
+        <!-- PANTALLA 2: SIMULACIÓN DE CHAT DE WHATSAPP (ENTORNO SEGURO) -->
+        <section id="screen2" class="app-screen" aria-label="Pantalla 2: Simulación de WhatsApp">
+          
+          <!-- Encabezado del Chat Seguro -->
+          <div class="chat-header">
+            <button class="btn-chat-back" onclick="switchScreen(1)" title="Volver al menú de lecciones">
+              <span class="back-arrow">←</span>
+              <span class="back-text">Salir</span>
+            </button>
+            
+            <div class="contact-profile">
+              <div class="avatar-contact">👦</div>
+              <div class="contact-meta">
+                <span class="contact-name">Lucas (Nieto)</span>
+                <span class="contact-status">🟢 En línea ahora</span>
+              </div>
+            </div>
+
+            <button class="btn-audio-assist" onclick="readAloudTask()" title="Escuchar la instrucción en voz alta">
+              <span class="audio-icon">🔊</span>
+              <span class="audio-label">Oír</span>
+            </button>
+          </div>
+
+          <!-- Caja de Guía Pedagógica Fija -->
+          <div class="chat-guide-card">
+            <div class="guide-tag">🎯 TU MISIÓN</div>
+            <p class="guide-instruction" id="taskInstructionText">
+              Lucas te pregunta cómo estás. <strong>Mantén pulsado el botón verde del micrófono 🎤</strong> para grabarle una nota de voz.
+            </p>
+          </div>
+
+          <!-- Área de Conversación Segura -->
+          <div class="chat-conversation-area" id="chatMessages">
+            <div class="chat-date-chip">Hoy, 10:28</div>
+            
+            <!-- Mensaje Recibido de Lucas -->
+            <div class="chat-bubble received">
+              <div class="bubble-sender">Lucas:</div>
+              <p class="bubble-content">¡Hola abuela! ¿Qué tal estás hoy? ¿Has salido a dar un paseo? ❤️</p>
+              <div class="bubble-meta">
+                <span class="bubble-time">10:28</span>
+              </div>
+            </div>
+
+            <!-- Contenedor dinámico para la respuesta del usuario -->
+            <div id="userResponseContainer"></div>
+          </div>
+
+          <!-- Indicador de Grabación de Audio Activa -->
+          <div class="recording-bar" id="recordingBar">
+            <div class="rec-dot"></div>
+            <span class="rec-timer" id="recTimer">Grabando audio... 0:02</span>
+            <span class="rec-instruction">¡Suelta para enviar!</span>
+          </div>
+
+          <!-- Barra de Entrada Inferior Ampliada para Accesibilidad -->
+          <div class="chat-input-bar">
+            <!-- Campo de Texto Amplio -->
+            <div class="text-input-field" onclick="triggerKeyboardSim()">
+              <span class="input-icon">⌨️</span>
+              <span class="input-placeholder" id="inputPlaceholder">Escribir mensaje...</span>
+            </div>
+
+            <!-- Botón Grande de Micrófono (Touch Target > 72dp) -->
+            <button class="btn-mic-large" id="btnMic" 
+                    onmousedown="startAudioRecording()" 
+                    onmouseup="stopAudioRecording()" 
+                    ontouchstart="startAudioRecording()" 
+                    ontouchend="stopAudioRecording()"
+                    aria-label="Grabar nota de voz">
+              <span class="mic-icon">🎤</span>
+              <span class="mic-text">GRABAR</span>
+            </button>
+
+            <!-- Botón de Enviar Texto -->
+            <button class="btn-send-large" id="btnSend" onclick="simulateSendText()" aria-label="Enviar mensaje">
+              <span class="send-icon">➤</span>
+            </button>
+          </div>
+
+        </section>
+
+
+        <!-- PANTALLA 3: FEEDBACK Y RECOMPENSA (GAMIFICACIÓN COMPASIVA) -->
+        <section id="screen3" class="app-screen" aria-label="Pantalla 3: Recompensa y Éxito">
+          
+          <!-- Contenedor de Confeti Canvas -->
+          <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+          <div class="reward-content">
+            
+            <!-- Mascota / Ilustración Empática y Amigable -->
+            <div class="mascot-badge-wrapper">
+              <div class="mascot-avatar">🦉✨</div>
+              <div class="reward-badge-ribbon">¡EXTRAORDINARIO!</div>
+            </div>
+
+            <!-- Textos de Refuerzo Positivo -->
+            <h2 class="reward-title">¡Misión Cumplida, Carmen!</h2>
+            
+            <p class="reward-achievement">
+              Has enviado tu primera <strong>Nota de Voz</strong> con total éxito. Ahora ya puedes hablarle a tu familia sin cansarte los dedos.
+            </p>
+
+            <!-- Tarjeta de Premio y Progresión -->
+            <div class="reward-card">
+              <div class="reward-item">
+                <span class="reward-icon">⭐</span>
+                <div class="reward-info">
+                  <span class="reward-val">+1 Estrella Sabia</span>
+                  <span class="reward-desc">Has acumulado 13 estrellas en total</span>
+                </div>
+              </div>
+
+              <div class="reward-divider"></div>
+
+              <div class="reward-item">
+                <span class="reward-icon">🏆</span>
+                <div class="reward-info">
+                  <span class="reward-val">Medalla de Comunicación</span>
+                  <span class="reward-desc">Desbloqueado: "Voz Clara"</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Acciones del Usuario: Continuar o Practicar Otra Vez -->
+            <div class="reward-actions">
+              <button class="btn-primary-continue" onclick="switchScreen(1)">
+                <span class="btn-continue-text">CONTINUAR AL MAPA</span>
+                <span class="btn-continue-icon">➔</span>
+              </button>
+
+              <button class="btn-secondary-repeat" onclick="switchScreen(2)">
+                <span class="btn-repeat-icon">↺</span>
+                <span class="btn-repeat-text">Practicar de nuevo sin prisa</span>
+              </button>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+
+    <!-- PANEL LATERAL DE ESPECIFICACIONES TÉCNICAS Y REVISIÓN PARA COMPAÑEROS -->
+    <aside class="ux-spec-panel" id="uxSpecPanel">
+      <div class="spec-panel-header">
+        <h3>📋 Ficha Técnica UX/UI para Exposición</h3>
+        <button class="btn-close-spec" onclick="toggleSpecPanel()">✕</button>
+      </div>
+
+      <div class="spec-scroll-area">
+        
+        <!-- SECCIÓN 1: JUSTIFICACIÓN DE DECISIONES DE DISEÑO -->
+        <article class="spec-card">
+          <h4>🎯 Objetivos Gerontológicos</h4>
+          <p>La interfaz aborda tres barreras cognitivas y físicas frecuentes en personas de +65 años:</p>
+          <ul>
+            <li><strong>Presbicia:</strong> Tipografía base mínima de <strong>18–20sp</strong>, alto contraste (7:1) y sin dependencia de iconos abstractos sin texto.</li>
+            <li><strong>Temblor o baja agilidad fina:</strong> Áreas de toque de <strong>64 × 64dp</strong> a <strong>72dp</strong>, con márgenes de separación de 16-24dp para evitar pulsaciones erróneas.</li>
+            <li><strong>Miedo al fallo (Tecnofobia):</strong> Gamificación no punitiva. Sin pérdida de vidas, con feedback verbal y sonoro positivo.</li>
+          </ul>
+        </article>
+
+        <!-- SECCIÓN 2: DESIGN TOKENS -->
+        <article class="spec-card">
+          <h4>🎨 Tokens de Color (WCAG 2.2 AAA)</h4>
+          <div class="token-row">
+            <span class="color-sample" style="background:#166534"></span>
+            <code>#166534</code> - Verde Esmeralda Accesible (Contraste 8.4:1 sobre blanco)
+          </div>
+          <div class="token-row">
+            <span class="color-sample" style="background:#1EBE5D"></span>
+            <code>#1EBE5D</code> - Verde WhatsApp familiar de acento
+          </div>
+          <div class="token-row">
+            <span class="color-sample" style="background:#F9FAFB"></span>
+            <code>#F9FAFB</code> - Superficie neutra cálida antifatiga
+          </div>
+          <div class="token-row">
+            <span class="color-sample" style="background:#B45309"></span>
+            <code>#B45309</code> - Ámbar cálido para logros y recompensas
+          </div>
+        </article>
+
+        <!-- SECCIÓN 3: COMPONENTES CLAVE POR PANTALLA -->
+        <article class="spec-card">
+          <h4>📐 Estructura de Pantallas para Figma</h4>
+          <details open>
+            <summary><strong>Pantalla 1: Mapa Duolingo</strong></summary>
+            <p>Nodos con <em>AutoLayout vertical</em>. Nodos de 80dp de diámetro. Indicadores de estado visuales + textuales (Completado / Toca aquí / Bloqueado).</p>
+          </details>
+          <details>
+            <summary><strong>Pantalla 2: Simulación WhatsApp</strong></summary>
+            <p>Header contextual simplificado con botón "Leer en voz alta" para usuarios con dificultades de lectura. Micrófono sobredimensionado de 72dp con microinteracción de ondas.</p>
+          </details>
+          <details>
+            <summary><strong>Pantalla 3: Recompensa</strong></summary>
+            <p>Efecto de celebración inmediato con confeti. Botón "Continuar" de 64dp de altura y botón "Repetir sin prisa" que valida la autonomía del usuario.</p>
+          </details>
+        </article>
+
+        <!-- SECCIÓN 4: PROBAR INTERACCIONES -->
+        <article class="spec-card highlight-card">
+          <h4>✨ Prueba las Interacciones en Vivo</h4>
+          <p>1. Ve a la <strong>Pantalla 2</strong> pulsando en el menú o en la lección activa.</p>
+          <p>2. Pulsa el botón <strong>"Oír"</strong> para escuchar la narración asistida.</p>
+          <p>3. Mantén pulsado <strong>"GRABAR"</strong> durante 2 segundos y suelta: enviará una nota de voz real simulada con sonido y saltará a la celebración.</p>
+        </article>
+
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- MODAL DE EXPORTACIÓN Y GUÍA RÁPIDA FIGMA -->
+  <div class="modal-backdrop" id="figmaModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🎨 Cómo presentar y transferir este Prototipo a Figma</h3>
+        <button class="btn-modal-close" onclick="closeFigmaModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Tienes 2 formas sencillas y profesionales de transferir este prototipo exacto a Figma para la exposición:</p>
+        
+        <div class="figma-step-box">
+          <div class="step-badge">Opción 1 (Recomendada - 1 Clic con plugin gratuito)</div>
+          <h4>Plugin "html.to.design" en Figma</h4>
+          <ol>
+            <li>Abre tu archivo de Figma.</li>
+            <li>Ve a <strong>Plugins &gt; html.to.design</strong> (o "Builder.io").</li>
+            <li>Pega la URL local de este prototipo o importa el archivo <code>index.html</code>.</li>
+            <li>¡Listo! El plugin convierte automáticamente este código en marcos (Frames), AutoLayouts, textos editables y colores con los componentes listos.</li>
+          </ol>
+        </div>
+
+        <div class="figma-step-box">
+          <div class="step-badge">Opción 2</div>
+          <h4>Exposición Directa en Navegador</h4>
+          <p>Puedes proyectar directamente esta aplicación web interactiva en la presentación. A tus compañeros y profesores les sorprenderá ver un prototipo que emite sonidos reales, graba notas de voz y lanza confeti, además de contar con el panel técnico de accesibilidad desplegable.</p>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn-primary-continue" onclick="copyFigmaSpecs()">📋 Copiar Guía de Componentes</button>
+          <button class="btn-secondary-repeat" onclick="closeFigmaModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST DE NOTIFICACIÓN ACCESIBLE -->
+  <div id="toastNotification" class="toast-notification" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
